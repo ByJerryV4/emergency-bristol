@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Report – Emergency Bristol</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/basestyle.css">
+  <link rel="stylesheet" href="/static/css/pagestyle.css">
+  <script src="/static/js/modes.js" defer></script>
+  <script src="/static/js/loader.js" defer></script>
+</head>
+<body>
+  <div id="loader-wrapper"><div id="loader"></div></div>
+  {% include 'components/navbar.html' %}
+  <img src="/static/icons/banner.png" alt="Emergency Bristol Banner"
+       style="width:100%; height:auto; max-height:200px; object-fit:contain; border-bottom: 2px solid red;">
+
+  <main id="main-content" style="display:none; padding: 2rem;">
+    <div class="form-container">
+      <h2>🚨 Player Report</h2>
+      <form method="POST" action="/report?type=player" enctype="multipart/form-data" onsubmit="submitForm(event, this)">
+        <label>Discord Username</label>
+        <input type="text" name="username" required>
+
+        <label>Report Reason</label>
+        <select name="report_reason" required>
+          <option value="">-- Select --</option>
+          <option value="Exploiting">Exploiting</option>
+          <option value="Teaming (with Exploiters)">Teaming (with Exploiters)</option>
+          <option value="Staff Impersonation">Staff Impersonation</option>
+          <option value="Bug Abuse">Bug Abuse</option>
+          <option value="Using / Promoting Exessively Small / Large Avatars">Using / Promoting Exessively Small / Large Avatars</option>
+          <option value="Advertising">Advertising</option>
+        </select>
+
+        <label>Details</label>
+        <textarea name="message" rows="6" required></textarea>
+
+        <label>Upload Evidence (Image/Video, max 25MB)</label>
+        <input type="file" name="evidence" accept="image/*,video/*" required>
+
+        <button type="submit" style="margin-top: 1rem;">Submit Player Report</button>
+      </form>
+    </div>
+
+    <div class="form-container">
+      <h2>🐞 Bug Report</h2>
+      <form method="POST" action="/report?type=bug" enctype="multipart/form-data" onsubmit="submitForm(event, this)">
+        <label>Discord Username</label>
+        <input type="text" name="username" required>
+
+        <label>Bug Type</label>
+        <select name="bug_type" required>
+          <option value="">-- Select --</option>
+          <option value="GUI">GUI</option>
+          <option value="Build">Build</option>
+          <option value="Script">Script</option>
+          <option value="Other (please specify)">Other (please specify)</option>
+        </select>
+
+        <label>Details</label>
+        <textarea name="message" rows="6" required></textarea>
+
+        <label>Upload Evidence (Image/Video, max 25MB)</label>
+        <input type="file" name="evidence" accept="image/*,video/*" required>
+
+        <button type="submit" style="margin-top: 1rem;">Submit Bug Report</button>
+      </form>
+    </div>
+
+    <div id="popup" class="popup">Form submitted successfully!</div>
+  </main>
+
+  <script>
+    function showPopup(message = "Form submitted successfully!") {
+      const popup = document.getElementById('popup');
+      if (!popup) return;
+      popup.textContent = message;
+      popup.style.display = 'block';
+      setTimeout(() => popup.style.display = 'none', 4000);
+    }
+
+    async function submitForm(e, form) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const url = form.action;
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          console.log(JSON.stringify(data, null, 2));
+          showPopup(`✅ Success:\n${JSON.stringify(data, null, 2)}`);
+          form.reset();
+        } else {
+          console.error("Error response:", data);
+          alert('⚠️ Submission failed.\n' + JSON.stringify(data, null, 2));
+        }
+
+      } catch (err) {
+        console.error("Request error:", err);
+        alert('❌ An error occurred.');
+      }
+    }
+
+    window.addEventListener('load', () => {
+      document.getElementById("main-content").style.display = "block";
+    });
+  </script>
+</body>
+</html>

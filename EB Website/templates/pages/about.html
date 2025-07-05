@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About – Emergency Bristol</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/basestyle.css">
+  <link rel="stylesheet" href="/static/css/pagestyle.css">
+  <script src="/static/js/modes.js" defer></script>
+  <script src="/static/js/loader.js" defer></script>
+</head>
+<body>
+  <div id="loader-wrapper"><div id="loader"></div></div>
+  {% include 'components/navbar.html' %}
+  <img src="/static/icons/banner.png" alt="Emergency Bristol Banner"
+     style="width:100%; height:auto; max-height:200px; object-fit:contain; border-bottom: 2px solid red;">
+  <main id="main-content" style="display:none; padding: 2rem;">
+    <div class="card">
+      <h2>What is Emergency Bristol?</h2>
+      <p>Emergency Bristol is a realistic UK‑based emergency services roleplay game, simulating real-world protocols, dynamic scenarios, and immersive experiences.</p>
+    </div>
+
+    <div class="card">
+      <h2>Key Features</h2>
+      <ul>
+        <li>🚨 Active policing, firefighting, and medical response</li>
+        <li>⚙️ Realistic systems for arrests, traffic stops, emergencies</li>
+        <li>🌧️ Weather & chaotic events like floods, blackouts, and invasions</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Why Play EB?</h2>
+      <p>Because you're looking for more than a game. You want a living city simulation, and we're building it.</p>
+    </div>
+  </main>
+</body>
+</html>

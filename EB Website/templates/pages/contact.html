@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact – Emergency Bristol</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/basestyle.css">
+  <link rel="stylesheet" href="/static/css/pagestyle.css">
+  <script src="/static/js/modes.js" defer></script>
+  <script src="/static/js/loader.js" defer></script>
+  <script src="/static/js/popup.js" defer></script>
+</head>
+<script>
+async function submitForm(e, form) {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+  const url = form.action;
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.success) {
+      console.log(JSON.stringify(data, null, 2));
+      showPopup(`✅ Success:\n${JSON.stringify(data, null, 2)}`);
+    } else {
+      console.error("Error response:", data);
+      alert('⚠️ Submission failed.\n' + JSON.stringify(data, null, 2));
+    }
+
+  } catch (err) {
+    console.error("Request error:", err);
+    alert('❌ An error occurred.');
+  }
+}
+</script>
+<body>
+  <div id="loader-wrapper"><div id="loader"></div></div>
+  {% include 'components/navbar.html' %}
+  <img src="/static/icons/banner.png" alt="Emergency Bristol Banner"
+     style="width:100%; height:auto; max-height:200px; object-fit:contain; border-bottom: 2px solid red;">
+
+  <main id="main-content" style="display:none; padding: 2rem;">
+    <div class="form-container">
+      <h2>Contact Us</h2>
+      <form method="POST" action="/contact" onsubmit="submitForm(event, this)">
+        <label>Discord Username</label>
+        <input type="text" name="username" required>
+
+        <label>Reason for Contacting</label>
+        <select name="reason" required>
+          <option value="">-- Select --</option>
+          <option value="Inquiry">Inquiry</option>
+          <option value="Support">Support</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label>Message</label>
+        <textarea name="message" rows="6" required></textarea>
+
+        <button type="submit" style="margin-top: 1rem;">Send</button>
+      </form>
+      <div id="popup" class="popup">Form submitted successfully!</div>
+    </div>
+  </main>
+</body>
+</html>

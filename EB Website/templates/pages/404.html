@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>404 – Emergency Bristol</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/basestyle.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/pagestyle.css') }}">
+  <script src="{{ url_for('static', filename='js/modes.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/loader.js') }}" defer></script>
+</head>
+<body>
+  <div id="loader-wrapper"><div id="loader"></div></div>
+
+  {% include 'components/navbar.html' %}
+
+  <img src="/static/icons/banner.png" alt="Emergency Bristol Banner"
+     style="width:100%; height:auto; max-height:200px; object-fit:contain; border-bottom: 2px solid red;">
+
+  <main id="main-content" style="display: none; padding: 2rem;">
+    <div class="card" style="text-align: center;">
+      <h1 style="font-size: 5rem; color: red; text-shadow: 0 0 15px red;">404</h1>
+      <p style="font-size: 1.2rem;">This page got lost in a Bristol flood.</p>
+      <a class="button" href="/" style="margin-top: 1rem;">Take me home</a>
+    </div>
+  </main>
+</body>
+</html>

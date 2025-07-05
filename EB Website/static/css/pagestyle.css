@@ -1,0 +1,36 @@
+.card {
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1rem;
+    box-shadow: 0 0 20px red;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px red;
+}
+
+.form-container {
+    background: #121212;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 15px red;
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: #2a2a2a;
+    color: white;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: 2px solid red;
+}
